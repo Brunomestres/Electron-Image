@@ -4,9 +4,11 @@ const electron = require('electron');
 const { app, BrowserWindow } = electron;
 
 app.on('ready',()=>{
-    new BrowserWindow({
+    const janelaPrincipal = new BrowserWindow({});
 
-    });
+    janelaPrincipal.loadURL(`file://${__dirname}/index.html`);
+
+
 });
 
 
