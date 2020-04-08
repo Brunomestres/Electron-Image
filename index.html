@@ -1,36 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title> -->
+    <link rel="stylesheet" href="public/css/photon.min.css">
 </head>
+
 <body>
-    <h1>Primeiro Projeto </h1>
-    <form>
-        <div>
-            <input type="file" accept="image/*" />
 
+
+    <div class="window">
+        <header class="toolbar toolbar-header">
+            <h1 class="title">Primeiro Projeto</h1>
+        </header>
+        <div class="window-content">
+            <div class="pane-group">
+                <form>
+                    <div class="form-group">
+                        <label>Selecione a imagem</label>
+                        <input class="form-control" type="file" accept="image/*" />
+                    </div>
+
+
+                    <button class="btn btn-large btn-default" type="submit">Mostrar dimensões</button>
+                </form>
+
+                <div id="result">
+
+                </div>
+            </div>
         </div>
+        <footer class="toolbar toolbar-footer">
 
-        <button type="submit">Mostrar dimensões</button>
-    </form>
-    <h1 id="result">
+        </footer>
+    </div>
 
-    </h1>
     <script>
-        const electron = require('electron'); 
+        const electron = require('electron');
         const { ipcRenderer } = electron;
-        document.querySelector('form').addEventListener('submit',e =>{
+        document.querySelector('form').addEventListener('submit', e => {
             e.preventDefault();
             const { path } = document.querySelector('input').files[0];
             ipcRenderer.send('obterDimensoesDaImagem', path);
         });
-        
-        ipcRenderer.on('dimensoesDaImagem',(event,dimensions)=>{
-            document.querySelector('#result').innerHTML = `Largura= ${dimensions.width} 
-                                                            Altura=${dimensions.height}`
+
+        ipcRenderer.on('dimensoesDaImagem', (event, dimensions) => {
+            console.log(dimensions);
+            document.querySelector('#result').innerHTML = `<table class="table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                <th>Largura</th>
+                                                                <th>Altura</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                <td>${dimensions.width}</td>
+                                                                <td>${dimensions.height}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                            </table>
+                                                            `
         });
     </script>
 </body>
+
 </html>

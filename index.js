@@ -6,6 +6,8 @@ let mainWindow;
 app.on('ready',()=>{
     mainWindow = new BrowserWindow({
         title: 'Image Size',
+        width: 800, 
+        height: 600,
         webPreferences:{
             nodeIntegration:true
         }
